@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Bot Embed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: none;
+            margin-top: 20px;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Perplexity Embeds</h1>
+        <div class="button-container">
+            <button onclick="showEmbed('embed1')">Embed 1</button>
+            <button onclick="showEmbed('embed2')">Embed 2</button>
+            <button onclick="showEmbed('embed3')">Embed 3</button>
+        </div>
+        <div class="embed-container">
+            <iframe id="embed1" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+            <iframe id="embed2" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+            <iframe id="embed3" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+        </div>
+    </div>
+    <script>
+        function showEmbed(embedId) {
+            document.getElementById('embed1').style.display = 'none';
+            document.getElementById('embed2').style.display = 'none';
+            document.getElementById('embed3').style.display = 'none';
+            document.getElementById(embedId).style.display = 'block';
+        }
+
+        // Show the first embed by default
+        showEmbed('embed1');
+    </script>
+</body>
+</html>
