@@ -1,264 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embedded Content</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Bot Embed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: none;
+            margin-top: 20px;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-  <div class="iframely-embed">
-    <div class="iframely-responsive" style="padding-bottom: 55.6738%; padding-top: 120px;">
-      <a href="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" data-iframely-url="//iframely.net/NLzmN81"></a>
+    <div class="container">
+        <h1>Interactive Perplexity Embeds</h1>
+        <div class="button-container">
+            <button onclick="showEmbed('embed1')">Embed 1</button>
+            <button onclick="showEmbed('embed2')">Embed 2</button>
+            <button onclick="showEmbed('embed3')">Embed 3</button>
+        </div>
+        <div class="embed-container">
+            <iframe id="embed1" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+            <iframe id="embed2" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+            <iframe id="embed3" src="https://www.perplexity.ai/page/5-Chrome-Extension-xZeMTF0EQsms9dfZi2cqvw" style="display: none;"></iframe>
+        </div>
     </div>
-  </div>
-  <script async src="//iframely.net/embed.js"></script>
+    <script>
+        function showEmbed(embedId) {
+            document.getElementById('embed1').style.display = 'none';
+            document.getElementById('embed2').style.display = 'none';
+            document.getElementById('embed3').style.display = 'none';
+            document.getElementById(embedId).style.display = 'block';
+        }
+
+        // Show the first embed by default
+        showEmbed('embed1');
+    </script>
 </body>
 </html>
-
-<body>
-  <div class="container">
-    <h1 class="neon-text">The Lee-gul Kween's Courtroom</h1>
-    <h2 class="neon-text">Oh huney, what's your lee-gul enquiry?</h2>
-    <div class="lee-gul-box">
-      <input type="text" id="leeGulInput" placeholder="Serve us your legal tea, darling!">
-      <button id="leeGulButton">Summon Annaturnee Cownsell</button>
-    </div>
-    <div id="leeGulResults"></div>
-  </div>
-
-  <script>
-    document.getElementById('leeGulButton').addEventListener('click', performLeeGulSearch);
-
-    function performLeeGulSearch() {
-      const query = document.getElementById('leeGulInput').value;
-      if (!query) return;
-
-      const leeGulResultsDiv = document.getElementById('leeGulResults');
-      leeGulResultsDiv.innerHTML = '<h2 class="neon-text">Serving Lee-gul Realness...</h2>';
-
-      setTimeout(() => {
-        const leeGulResponses = generateLeeGulResponses(query);
-        displayLeeGulResponses(leeGulResponses);
-      }, 2000);
-    }
-
-    function generateLeeGulResponses(query) {
-      return [
-        {
-          name: "Phi Phi O'Legal",
-          image: "https://i.imgur.com/hyperreal_phiphi.jpg",
-          relation: "The glittery 2nd cousin twice removed of Phi Phi O'Hara",
-          response: `Honey, your enquiry <span class="enquiry">"${query}"</span> is messier than my relationship with Sharon Needles! But let me school you on some Equality Act realness. Section 13 says you can't be treating folks different 'cause of their protected characteristics. That's direct discrimination, baby!`,
-          citation: "Equality Act 2010, c. 15, s. 13",
-          catchyQuote: "When the shade is too real, Section 13 makes the tea spill!"
-        },
-        {
-          name: "Sharon Law-dles",
-          image: "https://i.imgur.com/hyperreal_sharon.jpg",
-          relation: "The fabulous outcast sister of Sharon Needles (she got all the misters)",
-          response: `Child, your question <span class="enquiry">"${query}"</span> is giving me more drama than a spooky queen in daylight! Now, Section 19 of the Equality Act is all about that indirect discrimination. It's when a policy hits a protected group harder than others, even if it looks fair on the surface.`,
-          citation: "Equality Act 2010, c. 15, s. 19",
-          catchyQuote: "When the rules seem fair but the game ain't square, Section 19 brings the scare!"
-        },
-        {
-          name: "Alyssa Subpoenas",
-          image: "https://i.imgur.com/hyperreal_alyssa.jpg",
-          relation: "The long-lost twin sister of Alyssa Edwards (separated at birth by a rogue choreographer)",
-          response: `Oh honey, honey! Your legal tea <span class="enquiry">"${query}"</span> is hotter than a Texas rodeo in July! Now, let mama Alyssa tell you about Section 27. It's all about victimisation, darling. Can't be treating someone badly 'cause they complained about discrimination or helped someone else who did.`,
-          citation: "Equality Act 2010, c. 15, s. 27",
-          catchyQuote: "Be washin' ma hands with sanitisation, be rememberin' me Section 27 what constitutes victimisation - hellup Equality Act!"
-        }
-      ];
-    }
-
-    function displayLeeGulResponses(responses) {
-      const leeGulResultsDiv = document.getElementById('leeGulResults');
-      leeGulResultsDiv.innerHTML = '';
-
-      responses.forEach(response => {
-        const responseElement = document.createElement('div');
-        responseElement.className = 'lee-gul-response';
-        responseElement.innerHTML = `
-          <h3 class="lee-gul-title">${response.name} Serves Justice</h3>
-          <img src="${response.image}" alt="${response.name}" class="queen-image">
-          <p><i>${response.relation}</i></p>
-          <p class="lee-gul-content">${response.response}</p>
-          <p class="citation">${response.citation}</p>
-          <p class="catchy-quote">${response.catchyQuote}</p>
-        `;
-        leeGulResultsDiv.appendChild(responseElement);
-      });
-
-      // Add the summary poem and copy button
-      const summaryElement = document.createElement('div');
-      summaryElement.innerHTML = `
-        <h3>Sashay Away with These Lee-gul Gems</h3>
-        <p>
-        Phi Phi's Section 13, no shade allowed on the scene,<br>
-        Sharon's 19, indirect bias makes her scream,<br>
-        Alyssa's 27, victimisation's not her dream,<br>
-        Remember these rules and you'll be the Equality Queen!
-        </p>
-        <button id="copyButton" class="copy-button">Copy Statutes and Slay</button>
-      `;
-      leeGulResultsDiv.appendChild(summaryElement);
-
-      document.getElementById('copyButton').addEventListener('click', () => {
-        const statuteCard = document.createElement('div');
-        statuteCard.className = 'statute-card';
-        statuteCard.innerHTML = `
-          <h3>Your Equality Act Slay Card</h3>
-          <p>${responses[0].citation} - ${responses[0].catchyQuote}</p>
-          <p>${responses[1].citation} - ${responses[1].catchyQuote}</p>
-          <p>${responses[2].citation} - ${responses[2].catchyQuote}</p>
-          <p>
-          Phi Phi's 13, no shade on the scene,<br>
-          Sharon's 19, indirect bias makes her scream,<br>
-          Alyssa's 27, victimisation's not her dream,<br>
-          Slay with these rules, Equality Queen!
-          </p>
-        `;
-        leeGulResultsDiv.appendChild(statuteCard);
-
-        html2canvas(statuteCard).then(canvas => {
-          const link = document.createElement('a');
-          link.download = 'EqualityActSlayCard.png';
-          link.href = canvas.toDataURL();
-          link.click();
-        });
-      });
-    }
-  </script>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-</body>
-
-<head><base href="https://neonquery.ai">
-<title>The Lee-gul Kween's Courtroom - Drag Race Legal Realness</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0c0c0c;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  h1, h2 {
-    font-family: 'Orbitron', sans-serif;
-    text-align: center;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-  }
-  h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-  }
-  h2 {
-    font-size: 2em;
-    color: #00ffff;
-    margin-top: 40px;
-  }
-  .lee-gul-box {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  #leeGulInput {
-    width: 70%;
-    padding: 10px;
-    font-size: 1em;
-    border: 2px solid #ff00ff;
-    background-color: #1a1a1a;
-    color: #fff;
-    border-radius: 5px 0 0 5px;
-  }
-  #leeGulButton {
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #ff00ff;
-    color: #fff;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  #leeGulButton:hover {
-    background-color: #cc00cc;
-  }
-  #leeGulResults {
-    background-color: #1a1a1a;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 20px #00ffff;
-  }
-  .lee-gul-response {
-    margin-bottom: 30px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 20px;
-  }
-  .lee-gul-response:last-child {
-    border-bottom: none;
-  }
-  .lee-gul-title {
-    color: #00ffff;
-    font-size: 1.4em;
-    margin-bottom: 10px;
-  }
-  .lee-gul-content {
-    margin-bottom: 15px;
-  }
-  .queen-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  .citation {
-    font-size: 0.9em;
-    color: #888;
-    font-style: italic;
-  }
-  .enquiry {
-    color: #ff69b4;
-    font-weight: bold;
-    font-style: italic;
-  }
-  .catchy-quote {
-    color: #ffd700;
-    font-style: italic;
-    margin-top: 10px;
-  }
-  .copy-button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .statute-card {
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px #00ffff;
-  }
-  @keyframes neonPulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-  }
-  .neon-text {
-    animation: neonPulse 2s infinite;
-  }
-</style>
-</head>
