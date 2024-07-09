@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Advanced 3D Brain Visualization</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        function createBrain() {
+            const brainGroup = new THREE.Group();
+
+            // Load brain geometry from an external source for a more accurate shape
+            const loader = new THREE.BufferGeometryLoader();
+            loader.load('path/to/brain_geometry.json', function (geometry) {
+                const brainMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x00ffff,
+                    emissive: 0x00ffff,
+                    emissiveIntensity: 1,
+                    transparent: true,
+                    opacity: 0.6,
+                    shininess: 100
+                });
+                const brain = new THREE.Mesh(geometry, brainMaterial);
+                brainGroup.add(brain);
+            });
+
+            // Add neurons and connections
+            const neuronCount = 200;
+            const neurons = [];
+            for (let i = 0; i < neuronCount; i++) {
+                const neuronGeometry = new THREE.SphereGeometry(0.02, 16, 16);
+                const neuronMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                const neuron = new THREE.Mesh(neuronGeometry, neuronMaterial);
+                neuron.position.set(
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2
+                );
+                brainGroup.add(neuron);
+                neurons.push(neuron);
+            }
+
+            // Add neural connections
+            for (let i = 0; i < neuronCount / 2; i++) {
+                const startNeuron = neurons[Math.floor(Math.random() * neurons.length)];
+                const endNeuron = neurons[Math.floor(Math.random() * neurons.length)];
+                const curve = new THREE.QuadraticBezierCurve3(
+                    startNeuron.position,
+                    new THREE.Vector3(
+                        (startNeuron.position.x + endNeuron.position.x) / 2,
+                        (startNeuron.position.y + endNeuron.position.y) / 2,
+                        (startNeuron.position.z + endNeuron.position.z) / 2 + 0.1
+                    ),
+                    endNeuron.position
+                );
+                const points = curve.getPoints(50);
+                const connectionGeometry = new THREE.BufferGeometry().setFromPoints(points);
+                const connectionMaterial = new THREE.LineBasicMaterial({
+                    color: 0x00ffff,
+                    transparent: true,
+                    opacity: 0.5
+                });
+                const connection = new THREE.Line(connectionGeometry, connectionMaterial);
+                brainGroup.add(connection);
+            }
+
+            return brainGroup;
+        }
+
+        const brain = createBrain();
+        scene.add(brain);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            brain.rotation.y += 0.005;
+
+            // Pulse the neurons
+            brain.children.forEach((child, index) => {
+                if (child.type === 'Mesh' && child.geometry.type === 'SphereGeometry') {
+                    child.scale.setScalar(1 + 0.2 * Math.sin(Date.now() * 0.005 + index));
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }, false);
+    </script>
+</body>
+</html>
